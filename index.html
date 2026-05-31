@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#25584a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="经文阅读" />
+    <title>经文阅读</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./assets/icon.svg" />
+    <link rel="stylesheet" href="./styles.css?v=57" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <p class="eyebrow" id="todayLabel"></p>
+        <div class="topbar-main">
+          <div class="reader-mode-switch" role="tablist" aria-label="切换功能">
+            <button class="mode-button is-active" type="button" data-view-target="reader" aria-selected="true">阅读</button>
+            <button class="mode-button" type="button" data-view-target="counter" aria-selected="false">计数</button>
+          </div>
+          <div class="scroll-actions top-scroll-actions" aria-label="自动滚动">
+            <button class="secondary-button" id="autoScrollButton" type="button">自动滚动</button>
+            <label class="scroll-speed-control">
+              <input id="scrollSpeedSlider" type="range" min="12" max="88" step="1" value="38" aria-label="滚动速度" />
+              <span id="scrollSpeedText">中</span>
+            </label>
+          </div>
+        </div>
+      </header>
+      <button class="immersive-bar" id="immersiveBar" type="button" hidden>显示工具</button>
+      <div class="immersive-timer" id="immersiveTimer" aria-label="沉浸计时">
+        <div class="immersive-timer-meta">
+          <span>计时</span>
+          <strong id="immersiveTimerTime">05:00</strong>
+          <em id="immersiveTimerState">未开始</em>
+          <button class="immersive-scroll-button" id="immersiveAutoScrollButton" type="button">自动滚动</button>
+        </div>
+        <div class="immersive-timer-track" aria-hidden="true">
+          <span id="immersiveTimerProgress"></span>
+        </div>
+      </div>
+
+      <section class="reader-shell" aria-label="经文库">
+        <div class="reader-controls">
+          <button class="resume-reading-card" id="resumeReadingButton" type="button" hidden>
+            <span>续读</span>
+            <strong id="resumeReadingTitle"></strong>
+            <em id="resumeReadingProgress"></em>
+          </button>
+
+          <div class="scripture-tabs" id="scriptureTabs" aria-label="选择经文"></div>
+
+          <div class="chapter-controls" id="chapterControls" hidden>
+            <button class="chapter-nav-button" id="prevChapterButton" type="button" aria-label="上一品">上一品</button>
+            <label class="chapter-picker" id="chapterPicker">
+              <span>品目</span>
+              <select id="chapterSelect"></select>
+            </label>
+            <span class="chapter-current" id="chapterCurrentTitle"></span>
+            <button class="chapter-nav-button" id="nextChapterButton" type="button" aria-label="下一品">下一品</button>
+            <button class="chapter-nav-button" id="chapterListButton" type="button" aria-label="打开目录">目录</button>
+          </div>
+
+          <section class="timer-dock" aria-label="计时器">
+            <div class="timer-topline">
+              <span>计时</span>
+              <label class="timer-minutes">
+                <input id="timerMinutes" type="number" min="1" max="180" step="1" value="5" />
+                <span>分钟</span>
+              </label>
+            </div>
+            <div class="timer-face">
+              <strong id="timerTime">05:00</strong>
+              <span id="timerState">未开始</span>
+            </div>
+            <div class="timer-actions">
+              <button class="primary-button" id="timerToggleButton" type="button">开始</button>
+              <button class="secondary-button" id="timerResetButton" type="button">归零</button>
+            </div>
+            <div class="timer-track" aria-hidden="true">
+              <span id="timerProgress"></span>
+            </div>
+            <div class="timer-completion-message" id="timerCompletionMessage" hidden>本轮圆满</div>
+          </section>
+        </div>
+
+        <article class="reader view-panel" id="readerPanel">
+          <div class="reader-heading">
+            <div class="reader-title-row">
+              <h2 id="readerTitle">般若波罗蜜多心经</h2>
+              <span class="reader-progress" id="readerProgressText"></span>
+              <span class="reader-restore-toast" id="readerRestoreToast" hidden></span>
+            </div>
+            <div class="reader-actions">
+              <button class="reader-action-button" id="pinyinToggleButton" type="button">隐藏拼音</button>
+              <button class="reader-action-button" id="restartReadingButton" type="button">从头读</button>
+              <button class="reader-action-button desktop-reader-action" id="immersiveToggleButton" type="button">沉浸</button>
+            </div>
+          </div>
+          <div class="scripture-text" id="scriptureText"></div>
+        </article>
+
+        <section class="counter-panel view-panel" id="counterPanel" aria-label="计数" hidden>
+          <div class="counter-target-row" aria-label="计数目标">
+            <span>目标</span>
+            <button class="counter-target-button" type="button" data-counter-target="21">21</button>
+            <button class="counter-target-button" type="button" data-counter-target="108">108</button>
+            <label class="counter-target-custom">
+              <input id="counterTargetInput" type="number" min="1" max="99999" step="1" value="108" aria-label="自定义目标" />
+              <span>自定</span>
+            </label>
+            <strong class="counter-target-progress" id="counterTargetProgress">0/108</strong>
+          </div>
+          <div class="counter-feedback-row" aria-label="计数反馈">
+            <span>反馈</span>
+            <button class="counter-feedback-button" type="button" data-counter-feedback="sound">木鱼声</button>
+            <button class="counter-feedback-button" type="button" data-counter-feedback="vibrate">轻声</button>
+            <button class="counter-feedback-button" type="button" data-counter-feedback="silent">静默</button>
+          </div>
+          <div class="counter-completion" id="counterCompletion" aria-live="polite" hidden>
+            <strong id="counterCompletionText">圆满完成</strong>
+          </div>
+          <div class="counter-stage">
+            <button class="counter-main-button" id="counterButton" type="button">
+              <span class="counter-prompt">轻敲木鱼</span>
+              <span class="muyu-scene" aria-hidden="true">
+                <span class="muyu-ripple"></span>
+                <svg class="muyu-icon" viewBox="0 0 260 170" role="img" aria-label="木鱼">
+                  <path
+                    class="muyu-shell"
+                    d="M36 110c8-45 49-82 96-89 39-6 76 7 99 38 5 7 1 14-8 16 18 14 23 34 14 52-13 27-58 40-110 35-29-2-54-9-73-18l-16 12c-8 6-17-2-13-12l5-13c-8-7-5-19 6-21z"
+                  />
+                  <path class="muyu-groove" d="M83 103c42-17 88-31 139-42" />
+                  <circle class="muyu-eye" cx="69" cy="120" r="7" />
+                </svg>
+              </span>
+              <strong class="counter-total"><span id="counterValue">0</span><small>功德</small></strong>
+            </button>
+            <div class="count-flash" id="countFlash" aria-hidden="true"></div>
+          </div>
+          <div class="counter-panel-actions">
+            <button class="secondary-button" id="counterUndoButton" type="button">撤回一次</button>
+            <button class="secondary-button" id="counterResetButton" type="button">重新计数</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+    <section class="sheet-panel" id="chapterSheet" role="dialog" aria-modal="true" aria-labelledby="chapterSheetTitle" hidden>
+      <div class="sheet-head">
+        <h2 id="chapterSheetTitle">品目</h2>
+        <button class="sheet-close" id="chapterSheetClose" type="button">关闭</button>
+      </div>
+      <p class="chapter-sheet-summary" id="chapterSheetSummary"></p>
+      <div class="chapter-list" id="chapterList"></div>
+    </section>
+    <script src="./dizang.js?v=57"></script>
+    <script src="./extra-scriptures.js?v=57"></script>
+    <script src="./pinyin-data.js?v=57"></script>
+    <script src="./app.js?v=57"></script>
+  </body>
+</html>

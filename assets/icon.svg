@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="经文阅读">
+  <defs>
+    <linearGradient id="bg" x1="76" y1="52" x2="436" y2="460" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2e6f60"/>
+      <stop offset="1" stop-color="#143b35"/>
+    </linearGradient>
+    <linearGradient id="page" x1="120" y1="156" x2="392" y2="350" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fffdf4"/>
+      <stop offset="1" stop-color="#e8ddc7"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <path d="M368 100c-47 8-83 45-88 92 27-30 64-42 105-31-17-13-24-37-17-61Z" fill="#f4d993"/>
+  <path d="M139 174c52-12 91 0 117 37 26-37 65-49 117-37v198c-52-12-91 0-117 37-26-37-65-49-117-37V174Z" fill="url(#page)" stroke="#d7c7a9" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M256 211v198" stroke="#c9b88f" stroke-width="8" stroke-linecap="round"/>
+  <path d="M174 228h52M174 268h52M174 308h46M286 228h52M286 268h52M286 308h46" stroke="#245e50" stroke-width="14" stroke-linecap="round"/>
+  <path d="M214 367c20 5 34 15 42 30 8-15 22-25 42-30" fill="none" stroke="#b84432" stroke-width="18" stroke-linecap="round"/>
+</svg>
