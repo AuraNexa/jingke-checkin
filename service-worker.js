@@ -1,12 +1,12 @@
-const CACHE_NAME = "sutra-reader-v57";
+const CACHE_NAME = "sutra-reader-v74";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=57",
-  "./dizang.js?v=57",
-  "./extra-scriptures.js?v=57",
-  "./pinyin-data.js?v=57",
-  "./app.js?v=57",
+  "./styles.css?v=74",
+  "./dizang.js?v=74",
+  "./extra-scriptures.js?v=74",
+  "./pinyin-data.js?v=74",
+  "./app.js?v=74",
   "./manifest.webmanifest",
   "./assets/icon.svg",
   "./assets/chanting-texture.jpg"
